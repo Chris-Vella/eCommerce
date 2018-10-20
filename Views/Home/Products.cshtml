@@ -1,0 +1,53 @@
+@{
+    ViewData["Title"] = "Products | Store";
+}
+@model eCommerce.Models.Product
+
+@Html.Partial("./Partials/Header")
+
+<h1>Products</h1>
+<div id="left">
+    <p>Add a New Product</p>
+    <form asp-action="newProduct" asp-controller="Home" method="post">
+        <div class="form-group">
+            <label asp-for="product_name"></label><br>
+            <span asp-validation-for="product_name"></span>
+            <input asp-for="product_name"/>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="description"></label><br>
+            <span asp-validation-for="description"></span>
+            <textarea asp-for="description" rows="4" cols="24"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="image"></label><br>
+            <span asp-validation-for="image"></span>
+            <input asp-for="image"/>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="product_quantity"></label><br>
+            <span asp-validation-for="product_quantity"></span>
+            <input asp-for="product_quantity" type="number"/>
+        </div>
+        <input type="submit" value="Create">
+    </form>
+</div>
+<div id="right">
+    <h3>this is the right div</h3>
+    @{
+        foreach(var product in @ViewBag.AllProducts)
+        {
+            <a href="show/@product.productId">
+            <div class="productBox">
+                <img class="productImage" src="@product.image" alt="Picture of @product.product_name">
+                <p>@product.product_name</p>
+                <p>(@product.product_quantity left)</p>
+            </div>
+            </a>
+        }
+    }
+</div>
+<br>
